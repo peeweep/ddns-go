@@ -18,7 +18,6 @@ import (
 	"github.com/jeessy2/ddns-go/v6/config"
 	"github.com/jeessy2/ddns-go/v6/dns"
 	"github.com/jeessy2/ddns-go/v6/util"
-	"github.com/jeessy2/ddns-go/v6/util/update"
 	"github.com/jeessy2/ddns-go/v6/web"
 	"github.com/kardianos/service"
 )
@@ -26,9 +25,6 @@ import (
 // ddns-go 版本
 // ddns-go version
 var versionFlag = flag.Bool("v", false, "ddns-go version")
-
-// 更新 ddns-go
-var updateFlag = flag.Bool("u", false, "Upgrade ddns-go to the latest version")
 
 // 监听地址
 var listen = flag.String("l", ":9876", "Listen address")
@@ -72,11 +68,6 @@ func main() {
 		fmt.Println(version)
 		return
 	}
-	if *updateFlag {
-		update.Self(version)
-		return
-	}
-
 	// 安卓 go/src/time/zoneinfo_android.go 固定localLoc 为 UTC
 	if runtime.GOOS == "android" {
 		util.FixTimezone()
